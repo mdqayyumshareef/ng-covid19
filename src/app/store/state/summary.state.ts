@@ -5,19 +5,14 @@ export interface SummaryState {
     loading: boolean;
     globalSummary: SummaryModel;
     countries: CountryModel[];
+    timestamp: string;
     error: Error;
 }
 
 export const initialSummaryState: SummaryState = {
     loading: false,
-    globalSummary: {
-        NewConfirmed: 0,
-        TotalConfirmed: 0,
-        NewDeaths:0,
-        TotalDeaths: 0,
-        NewRecovered: 0,
-        TotalRecovered: 0,
-    },
+    globalSummary: undefined,
     countries: [],
+    timestamp: undefined,
     error: undefined,
 }

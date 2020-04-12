@@ -4,59 +4,82 @@
             <mat-card>
                 <mat-card-header>
                     <mat-card-title>Global Summary</mat-card-title>
-                    <mat-card-subtitle>Time stamp</mat-card-subtitle>
+                    <mat-card-subtitle>{{timestamp|date}}</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
-                    <div class="row" *ngIf="summary$ | async as summary">
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="info">
-                                        <h3>New Confirmed</h3>
-                                        <span>{{summary.NewConfirmed}}</span>
+                    <ng-container *ngIf="loading">
+                        <div class="d-flex justify-content-center">
+                            <mat-spinner [diameter]="50"></mat-spinner>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="summary$ |async as summary">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="info">
+                                            <h3>New Confirmed</h3>
+                                            <span>{{summary.NewConfirmed}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="info">
+                                            <h3>Total Confirmed</h3>
+                                            <span>{{summary.TotalConfirmed}}</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12">
-                                    <div class="info">
-                                        <h3>Total Confirmed</h3>
-                                        <span>{{summary.TotalConfirmed}}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="info">
+                                            <h3>New Deaths</h3>
+                                            <span>{{summary.NewDeaths}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="info">
+                                            <h3>Total Deaths</h3>
+                                            <span>{{summary.TotalDeaths}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="info">
+                                            <h3>New Recovered</h3>
+                                            <span>{{summary.NewRecovered}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="info">
+                                            <h3>Total Recovered</h3>
+                                            <span>{{summary.TotalRecovered}}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="info">
-                                        <h3>New Deaths</h3>
-                                        <span>{{summary.NewDeaths}}</span>
-                                    </div>
+                    </ng-container>
+                    <ng-container *ngIf="error">
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <div class="w-100 h-100 d-flex align-items-center">
+                                    <span>
+                                        Whoops, looks like we hit a network issue. Let's try that again?
+                                    </span>
                                 </div>
-                                <div class="col-sm-12">
-                                    <div class="info">
-                                        <h3>Total Deaths</h3>
-                                        <span>{{summary.TotalDeaths}}</span>
-                                    </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="w-100 h-100 d-flex align-items-center justify-content-end">
+                                    <button mat-raised-button color="primary" (click)="onRetry()">Retry</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="info">
-                                        <h3>New Recovered</h3>
-                                        <span>{{summary.NewRecovered}}</span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="info">
-                                        <h3>Total Recovered</h3>
-                                        <span>{{summary.TotalRecovered}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </ng-container>
                 </mat-card-content>
             </mat-card>
         </div>

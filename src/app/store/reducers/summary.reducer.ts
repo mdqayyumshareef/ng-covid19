@@ -12,18 +12,20 @@ export function summaryReducer(
                 loading: true
             }
         case SummaryActionTypes.LOAD_SUMMARY_SUCCESS:
-            const { Global, Countries } = action.payload.response;
+            const { Global, Countries, Date } = action.payload.response;
             return {
                 ...state,
                 loading: false,
                 globalSummary: Global,
-                countries: Countries
+                countries: Countries,
+                timestamp: Date
             }
         case SummaryActionTypes.LOAD_SUMMARY_FAILURE:
             const { error } = action.payload;
             return {
                 ...state,
-                error: error
+                loading: false,
+                error: error,
             }
         default:
             return state;

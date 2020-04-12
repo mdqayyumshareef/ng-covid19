@@ -4,4 +4,5 @@ import { CountryModel } from '../country.model';
 export interface SummaryResponse {
     Global: SummaryModel;
     Countries: CountryModel[];
+    Date: string;
 }
