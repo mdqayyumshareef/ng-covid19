@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SummaryResponse } from '../models/response-models/summary.response';
+import { SummaryResponse } from '../store/models/response-models/summary.response';
 
 @Injectable({
     providedIn: 'root'

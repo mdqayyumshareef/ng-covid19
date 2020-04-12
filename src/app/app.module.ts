@@ -8,6 +8,11 @@ import { NgMaterialModule } from './ng-material/ng-material.module';
 import { GlobalSummaryComponent } from './components/global-summary/global-summary.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { appEffects, appReducers } from './store/app.store';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
     declarations: [
@@ -21,7 +26,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         NgMaterialModule,
         HttpClientModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        StoreModule.forRoot(appReducers),
+        EffectsModule.forRoot(appEffects),
+        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
     ],
     providers: [],
     bootstrap: [AppComponent]
