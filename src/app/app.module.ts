@@ -6,6 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './components/header/header.component';
 import { NgMaterialModule } from './ng-material/ng-material.module';
 import { GlobalSummaryComponent } from './components/global-summary/global-summary.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -16,7 +18,10 @@ import { GlobalSummaryComponent } from './components/global-summary/global-summa
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        NgMaterialModule
+        NgMaterialModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [],
     bootstrap: [AppComponent]
