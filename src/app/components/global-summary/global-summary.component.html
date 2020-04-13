@@ -9,7 +9,7 @@
                 <mat-card-content>
                     <ng-container *ngIf="loading">
                         <div class="d-flex justify-content-center">
-                            <mat-spinner [diameter]="50"></mat-spinner>
+                            <mat-spinner [diameter]="40"></mat-spinner>
                         </div>
                     </ng-container>
                     <ng-container *ngIf="summary$ |async as summary">
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                     </ng-container>
-                    <ng-container *ngIf="error">
+                    <ng-container *ngIf="error && !loading">
                         <div class="row">
                             <div class="col-sm-9">
                                 <div class="w-100 h-100 d-flex align-items-center">

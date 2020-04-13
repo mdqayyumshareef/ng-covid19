@@ -2,13 +2,17 @@
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~bootstrap/dist/css/bootstrap.css";
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
 
-html, body { height: 100%; }
-body { 
-    margin: 0; 
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
     background-color: #f5f5f5;
     font-family: Roboto, "Helvetica Neue", sans-serif;
-        
+
     .container {
         padding-top: 1rem;
     }
