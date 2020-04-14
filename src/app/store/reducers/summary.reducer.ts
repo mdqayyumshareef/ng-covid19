@@ -18,7 +18,8 @@ export function summaryReducer(
                 loading: false,
                 globalSummary: Global,
                 countries: Countries,
-                timestamp: Date
+                timestamp: Date,
+                error: undefined
             }
         case SummaryActionTypes.LOAD_SUMMARY_FAILURE:
             const { error } = action.payload;
