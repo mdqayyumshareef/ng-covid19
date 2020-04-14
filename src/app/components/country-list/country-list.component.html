@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="row pb-3">
+        <div class="col-sm-12">
+            <mat-chip-list>
+                <mat-chip color="accent" selected>
+                    <mat-icon class="mr-2">filter_list</mat-icon>
+                    Most Confirmed
+                </mat-chip>
+            </mat-chip-list>
+        </div>
+    </div>
+    <div class="row">
+        <ng-container *ngFor="let country of countries$ | async">
+            <div class=" col-lg-3 col-md-4 col-sm-6 pb-3">
+                <app-country [country]="country"></app-country>
+            </div>
+        </ng-container>
+    </div>
+    <mat-paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+        (page)="pageEvent($event)" showFirstLastButtons>
+    </mat-paginator>
+</div>

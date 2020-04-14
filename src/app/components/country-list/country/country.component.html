@@ -1,0 +1,24 @@
+<ng-container *ngIf="country">
+    <mat-card class="h-100">
+        <div class="header">
+            <h3>{{country.Country}}</h3>
+            <small class="d-block">{{country.Date | date}}</small>
+        </div>
+        <mat-card-content>
+            <ul>
+                <li>New Confirmed: {{country.NewConfirmed | intlNum}}</li>
+                <li>Total Confirmed: {{country.TotalConfirmed | intlNum}}</li>
+            </ul>
+
+            <ul>
+                <li>New Deaths: {{country.NewDeaths | intlNum}}</li>
+                <li>Total Deaths: {{country.TotalDeaths | intlNum}}</li>
+            </ul>
+
+            <ul>
+                <li>New Recovered: {{country.NewRecovered |intlNum}}</li>
+                <li>Total Recovered: {{country.TotalRecovered | intlNum}}</li>
+            </ul>
+        </mat-card-content>
+    </mat-card>
+</ng-container>

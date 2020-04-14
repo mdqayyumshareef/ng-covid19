@@ -13,12 +13,18 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { appEffects, appReducers } from './store/app.store';
 import { StoreModule } from '@ngrx/store';
+import { CountryListComponent } from './components/country-list/country-list.component';
+import { CountryComponent } from './components/country-list/country/country.component';
+import { InternationalNumberPipe } from './pipes/international-number.pipe';
 
 @NgModule({
     declarations: [
         AppComponent,
         HeaderComponent,
-        GlobalSummaryComponent
+        GlobalSummaryComponent,
+        CountryListComponent,
+        CountryComponent,
+        InternationalNumberPipe
     ],
     imports: [
         BrowserModule,
