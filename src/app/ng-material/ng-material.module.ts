@@ -7,6 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatRadioModule } from '@angular/material/radio';
 
 const materialComponents = [
     MatToolbarModule,
@@ -16,12 +17,13 @@ const materialComponents = [
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatPaginatorModule,
-    MatChipsModule
+    MatChipsModule,
+    MatRadioModule
 ];
 
 @NgModule({
     imports: [...materialComponents],
     exports: [...materialComponents]
-
 })
+
 export class NgMaterialModule { }

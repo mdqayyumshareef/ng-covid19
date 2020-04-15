@@ -21,30 +21,59 @@ export class CountryListComponent implements OnInit {
     pageSize: number = 8; //default
     pageSizeOptions: number[] = [8, 16, 24];
 
+    public get startIndex(): number {
+        return (this.pageIndex * this.pageSize);
+    }
+
+    public get endIndex(): number {
+        return  this.startIndex + this.pageSize
+    }
+
+    // Ng-Models
+    filterOption = 1; //default
+
     constructor(
         private store: Store<AppState>,
     ) { }
 
     ngOnInit(): void {
-        const startIndex: number = (this.pageIndex * this.pageSize);
-        const endIndex: number = (startIndex + this.pageSize);
-
-       this.getCountries(startIndex, endIndex);
+        this.getCountries(this.startIndex, this.endIndex, this.filterOption);
     }
 
     pageEvent(event: any) {
-        const startIndex: number = (event.pageIndex * event.pageSize);
-        const endIndex: number = (startIndex + event.pageSize);
-
-        this.getCountries(startIndex, endIndex);
+        this.pageIndex = event.pageIndex;
+        this.pageSize = event.pageSize;
+        this.getCountries(this.startIndex, this.endIndex, this.filterOption);
     }
 
-    private getCountries(startIndex: number, endIndex: number) {
+    onChangeFilter(event: any) {
+        /**
+         * event.value
+         * 1 = most confirmed
+         * 2 = most deaths
+         * 3 = most recovered
+         */
+        if (this.pageIndex != 0) { this.pageIndex = 0 } // Reset page index
+        this.getCountries(this.startIndex, this.endIndex, event.value)
+    }
+
+    private getCountries(startIndex: number, endIndex: number, filter: number) {
         this.countries$ = this.store.select(selectCountries).pipe(
             tap(countries => this.length = countries.length),
             map(countries => countries
                 .slice()
-                .sort((a, b) => (b.TotalConfirmed - a.TotalConfirmed))
+                .sort((a, b) => {
+                    switch (filter) {
+                        case 1:
+                            return b.TotalConfirmed - a.TotalConfirmed;
+                        case 2:
+                            return b.TotalDeaths - a.TotalDeaths;
+                        case 3:
+                            return b.TotalRecovered - a.TotalRecovered;
+                        default:
+                            return 0;
+                    }
+                })
                 .slice(startIndex, endIndex)
             ),
         );

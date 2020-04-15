@@ -1,11 +1,28 @@
 <div class="container">
+    <div class="row pb-2">
+        <div class="col-md-2">Filters:</div>
+        <div class="col-md-10">
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="filterOption" (change)="onChangeFilter($event)">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4">
+                            <mat-radio-button [value]="1">Most Confirmed</mat-radio-button>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                            <mat-radio-button [value]="2">Most Deaths</mat-radio-button>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                            <mat-radio-button [value]="3">Most Recovered</mat-radio-button>
+                    </div>
+                </div>
+            </mat-radio-group>
+        </div>
+    </div>
     <div class="row pb-3">
         <div class="col-sm-12">
             <mat-chip-list>
-                <mat-chip color="accent" selected>
-                    <mat-icon class="mr-2">filter_list</mat-icon>
-                    Most Confirmed
-                </mat-chip>
+                <mat-chip color="accent" [selected]="filterOption == 1">Most Confirmed</mat-chip>
+                <mat-chip color="accent" [selected]="filterOption == 2">Most Deaths</mat-chip>
+                <mat-chip color="accent" [selected]="filterOption == 3">Most Recovered</mat-chip>
             </mat-chip-list>
         </div>
     </div>
@@ -16,7 +33,8 @@
             </div>
         </ng-container>
     </div>
-    <mat-paginator class="mb-4" [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-        (page)="pageEvent($event)" showFirstLastButtons>
+    <mat-paginator class="mb-4" [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions" (page)="pageEvent($event)" showFirstLastButtons>
     </mat-paginator>
 </div>
+
