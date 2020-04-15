@@ -1,4 +1,4 @@
-<div class="container">
+<div @fadeIn class="container" *ngIf="countries$">
     <div class="row pb-2">
         <div class="col-md-2">Filters:</div>
         <div class="col-md-10">
@@ -28,12 +28,12 @@
     </div>
     <div class="row">
         <ng-container *ngFor="let country of countries$ | async">
-            <div class=" col-lg-3 col-md-4 col-sm-6 pb-3">
+            <div @fadeIn class=" col-lg-3 col-md-4 col-sm-6 pb-3">
                 <app-country [country]="country"></app-country>
             </div>
         </ng-container>
     </div>
-    <mat-paginator class="mb-4" [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+    <mat-paginator @fadeIn class="mb-4" [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
         [pageSizeOptions]="pageSizeOptions" (page)="pageEvent($event)" showFirstLastButtons>
     </mat-paginator>
 </div>

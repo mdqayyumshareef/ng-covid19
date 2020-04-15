@@ -1,17 +1,25 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
 import { LoadSummaryAction } from 'src/app/store/actions/summary.action';
 import { AppState } from 'src/app/store/app.store';
-import { CountryModel } from 'src/app/store/models/country.model';
 import { SummaryModel } from 'src/app/store/models/summary.model';
-import { selectGlobalSummary, selectCountries, selectSummary } from 'src/app/store/selectors/summary.selector';
-import { takeUntil, tap } from 'rxjs/operators';
+import { selectGlobalSummary, selectSummary } from 'src/app/store/selectors/summary.selector';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
     selector: 'app-global-summary',
     templateUrl: './global-summary.component.html',
-    styleUrls: ['./global-summary.component.scss']
+    styleUrls: ['./global-summary.component.scss'],
+    animations: [
+        trigger('fadeIn', [
+            transition('void => *', [
+                style({opacity: 0}),
+                animate(1000)
+            ])
+        ])
+    ]
 })
 export class GlobalSummaryComponent implements OnInit, OnDestroy {
 

@@ -5,11 +5,20 @@ import { map, tap } from 'rxjs/operators';
 import { AppState } from 'src/app/store/app.store';
 import { CountryModel } from 'src/app/store/models/country.model';
 import { selectCountries } from 'src/app/store/selectors/summary.selector';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
     selector: 'app-country-list',
     templateUrl: './country-list.component.html',
-    styleUrls: ['./country-list.component.scss']
+    styleUrls: ['./country-list.component.scss'],
+    animations: [
+        trigger('fadeIn', [
+            transition('void => *', [
+                style({opacity: 0}),
+                animate(1500,)
+            ])
+        ])
+    ]
 })
 export class CountryListComponent implements OnInit {
 
@@ -26,7 +35,7 @@ export class CountryListComponent implements OnInit {
     }
 
     public get endIndex(): number {
-        return  this.startIndex + this.pageSize
+        return this.startIndex + this.pageSize
     }
 
     // Ng-Models
