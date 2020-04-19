@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -5,7 +6,6 @@ import { map, tap } from 'rxjs/operators';
 import { AppState } from 'src/app/store/app.store';
 import { CountryModel } from 'src/app/store/models/country.model';
 import { selectCountries } from 'src/app/store/selectors/summary.selector';
-import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
     selector: 'app-country-list',
@@ -14,12 +14,13 @@ import { trigger, transition, style, animate } from '@angular/animations';
     animations: [
         trigger('fadeIn', [
             transition('void => *', [
-                style({opacity: 0}),
-                animate(1500,)
+                style({ opacity: 0 }),
+                animate(1500)
             ])
         ])
     ]
 })
+
 export class CountryListComponent implements OnInit {
 
     countries$: Observable<CountryModel[]>;
@@ -40,22 +41,43 @@ export class CountryListComponent implements OnInit {
 
     // Ng-Models
     filterOption = 1; //default
+    searchTxt: string = '';
 
     constructor(
         private store: Store<AppState>,
     ) { }
 
     ngOnInit(): void {
-        this.getCountries(this.startIndex, this.endIndex, this.filterOption);
+        this.countries$ = this.getCountries(this.filterOption).pipe(
+            map(c => c.slice(this.startIndex, this.endIndex))
+        );
+    }
+
+    onSearch($event) {
+        this.countries$ = this.getCountries(this.filterOption).pipe(
+            map(countries => countries
+                .filter(x => x.Country.toLowerCase().includes(this.searchTxt.toLowerCase()))
+                .slice(this.startIndex, this.endIndex)
+            )
+        );
+    }
+
+    onSearchTxtClear() {
+        this.searchTxt = '';
+        this.countries$ = this.getCountries(this.filterOption).pipe(
+            map(c => c.slice(this.startIndex, this.endIndex))
+        );
     }
 
     pageEvent(event: any) {
         this.pageIndex = event.pageIndex;
         this.pageSize = event.pageSize;
-        this.getCountries(this.startIndex, this.endIndex, this.filterOption);
+        this.countries$ = this.getCountries(this.filterOption).pipe(
+            map(c => c.slice(this.startIndex, this.endIndex))
+        );
     }
 
-    onChangeFilter(event: any) {
+    onChangeSort(event: any) {
         /**
          * event.value
          * 1 = most confirmed
@@ -63,16 +85,18 @@ export class CountryListComponent implements OnInit {
          * 3 = most recovered
          */
         if (this.pageIndex != 0) { this.pageIndex = 0 } // Reset page index
-        this.getCountries(this.startIndex, this.endIndex, event.value)
+        this.countries$ = this.getCountries(event.value).pipe(
+            map(c => c.slice(this.startIndex, this.endIndex))
+        );
     }
 
-    private getCountries(startIndex: number, endIndex: number, filter: number) {
-        this.countries$ = this.store.select(selectCountries).pipe(
+    private getCountries(sortBy: number): Observable<CountryModel[]> {
+        return this.store.select(selectCountries).pipe(
             tap(countries => this.length = countries.length),
             map(countries => countries
                 .slice()
                 .sort((a, b) => {
-                    switch (filter) {
+                    switch (sortBy) {
                         case 1:
                             return b.TotalConfirmed - a.TotalConfirmed;
                         case 2:
@@ -83,7 +107,6 @@ export class CountryListComponent implements OnInit {
                             return 0;
                     }
                 })
-                .slice(startIndex, endIndex)
             ),
         );
     }

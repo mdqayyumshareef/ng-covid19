@@ -1,40 +1,52 @@
 <div @fadeIn class="container" *ngIf="countries$">
-    <div class="row pb-2">
-        <div class="col-md-2">Filters:</div>
-        <div class="col-md-10">
-            <mat-radio-group aria-label="Select an option" [(ngModel)]="filterOption" (change)="onChangeFilter($event)">
-                <div class="row">
-                    <div class="col-md-3 col-sm-4">
-                            <mat-radio-button [value]="1">Most Confirmed</mat-radio-button>
-                    </div>
-                    <div class="col-md-3 col-sm-4">
-                            <mat-radio-button [value]="2">Most Deaths</mat-radio-button>
-                    </div>
-                    <div class="col-md-3 col-sm-4">
-                            <mat-radio-button [value]="3">Most Recovered</mat-radio-button>
-                    </div>
-                </div>
-            </mat-radio-group>
-        </div>
-    </div>
-    <div class="row pb-3">
-        <div class="col-sm-12">
-            <mat-chip-list>
-                <mat-chip color="accent" [selected]="filterOption == 1">Most Confirmed</mat-chip>
-                <mat-chip color="accent" [selected]="filterOption == 2">Most Deaths</mat-chip>
-                <mat-chip color="accent" [selected]="filterOption == 3">Most Recovered</mat-chip>
-            </mat-chip-list>
-        </div>
-    </div>
     <div class="row">
-        <ng-container *ngFor="let country of countries$ | async">
-            <div @fadeIn class=" col-lg-3 col-md-4 col-sm-6 pb-3">
+        <div class="col-sm-12">
+            <mat-form-field class="form-field-fluid">
+                <mat-label>Search Country</mat-label>
+                <input matInput type="text" [(ngModel)]="searchTxt" (keyup)="onSearch($event)" placeholder="Eg: Italy">
+                <button mat-button *ngIf="searchTxt" matSuffix mat-icon-button aria-label="Clear"
+                    (click)="onSearchTxtClear()" matTooltip="Clear Search">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+    </div>
+    <ng-container *ngIf="!searchTxt">
+        <div class="row pb-2">
+            <div class="col-md-2">View:</div>
+            <div class="col-md-10">
+                <mat-radio-group aria-label="Select an option" [(ngModel)]="filterOption"
+                    (change)="onChangeSort($event)">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4">
+                            <mat-radio-button [value]="1">Most Confirmed</mat-radio-button>
+                        </div>
+                        <div class="col-md-3 col-sm-4">
+                            <mat-radio-button [value]="2">Most Deaths</mat-radio-button>
+                        </div>
+                        <div class="col-md-3 col-sm-4">
+                            <mat-radio-button [value]="3">Most Recovered</mat-radio-button>
+                        </div>
+                    </div>
+                </mat-radio-group>
+            </div>
+        </div>
+    </ng-container>
+    <div class="row">
+        <ng-template #noResults>
+            <div class="col-sm-12">
+                <div class="search-msg">
+                    <p>Sorry, we couldn't find any results matching "{{searchTxt}}".</p>
+                </div>
+            </div>
+        </ng-template>
+        <ng-container *ngIf="(countries$ | async)?.length > 0; else noResults">
+            <div @fadeIn class=" col-lg-3 col-md-4 col-sm-6 pb-3" *ngFor="let country of countries$ | async">
                 <app-country [country]="country"></app-country>
             </div>
         </ng-container>
     </div>
-    <mat-paginator @fadeIn class="mb-4" [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
-        [pageSizeOptions]="pageSizeOptions" (page)="pageEvent($event)" showFirstLastButtons>
+    <mat-paginator *ngIf="!searchTxt" @fadeIn class="mb-4" [length]="length" [pageIndex]="pageIndex"
+        [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent($event)" showFirstLastButtons>
     </mat-paginator>
 </div>
-

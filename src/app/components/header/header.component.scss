@@ -4,4 +4,16 @@ mat-toolbar-row {
 
 a {
     color: #ffffff;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.link-text {
+    display: inline;
+}
+
+@media (max-width: 576px) {
+    .link-text {
+        display: none;
+    }
 }
