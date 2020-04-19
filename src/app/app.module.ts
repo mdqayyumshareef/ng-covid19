@@ -16,6 +16,8 @@ import { StoreModule } from '@ngrx/store';
 import { CountryListComponent } from './components/country-list/country-list.component';
 import { CountryComponent } from './components/country-list/country/country.component';
 import { InternationalNumberPipe } from './pipes/international-number.pipe';
+import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
+import { LineChartComponent } from './charts/line-chart/line-chart.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +26,9 @@ import { InternationalNumberPipe } from './pipes/international-number.pipe';
         GlobalSummaryComponent,
         CountryListComponent,
         CountryComponent,
-        InternationalNumberPipe
+        InternationalNumberPipe,
+        PieChartComponent,
+        LineChartComponent
     ],
     imports: [
         BrowserModule,

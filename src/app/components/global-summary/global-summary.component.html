@@ -12,7 +12,7 @@
                             <mat-spinner [diameter]="40"></mat-spinner>
                         </div>
                     </ng-container>
-                    <ng-container *ngIf="summary$ |async as summary">
+                    <ng-container *ngIf="summary">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="row">
@@ -61,6 +61,14 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <app-pie-chart [data]="pieChartData"></app-pie-chart>
+                            </div>
+                            <div class="col-md-6">
+                                <app-line-chart [data]="lineChartData"></app-line-chart>
                             </div>
                         </div>
                     </ng-container>
